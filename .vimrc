@@ -1,19 +1,22 @@
 syntax on
-
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+cal plug#begin('~/.vim/plugged')
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tomlion/vim-solidity'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'morhetz/gruvbox'
-Plugin 'leafgarland/typescript-vim'
+Plug 'tomlion/vim-solidity'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'morhetz/gruvbox'
+Plug 'leafgarland/typescript-vim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts'
+Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
+Plug 'glepnir/lspsaga.nvim'
 
-call vundle#end()
+call plug#end()
+
 filetype plugin indent on
 
 set shiftwidth=2
@@ -26,9 +29,9 @@ set hlsearch
 set ruler
 set autoindent
 highlight Comment ctermfg=green
-
 filetype plugin indent on
 autocmd vimenter * ++nested colorscheme gruvbox 
-
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
+let g:python_host_prog = '/Users/piotrostrowski/miniconda/bin/python'
+let g:python3_host_prog = '/Users/piotrostrowski/miniconda/bin/python3'
 
