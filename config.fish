@@ -36,6 +36,7 @@ set -gx EDITOR nvim
 set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
+set -gx REACT_DEBUGGER "open -g 'rndebugger://set-debugger-loc?port=8081' ||" react-native start --reset-cache
 
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
