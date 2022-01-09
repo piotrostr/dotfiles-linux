@@ -1,19 +1,23 @@
-syntax on
-set nocompatible
-filetype off
+syntax enable
+filetype plugin indent on
 
-cal plug#begin('~/.vim/plugged')
+call plug#begin('~/.vim/plugged')
 
 Plug 'tomlion/vim-solidity'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-Plug 'morhetz/gruvbox'
+Plug 'rakr/vim-one'
 Plug 'leafgarland/typescript-vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts'
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 Plug 'glepnir/lspsaga.nvim'
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'morhetz/gruvbox'
+Plug 'dag/vim-fish'
+Plug 'jparise/vim-graphql'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -30,8 +34,8 @@ set ruler
 set autoindent
 highlight Comment ctermfg=green
 filetype plugin indent on
-autocmd vimenter * ++nested colorscheme gruvbox 
-autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
+autocmd vimenter * ++nested colorscheme gruvbox
+"autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 let g:python_host_prog = '/Users/piotrostrowski/miniconda/bin/python'
 let g:python3_host_prog = '/Users/piotrostrowski/miniconda/bin/python3'
 
