@@ -9,15 +9,15 @@ Plug 'mxw/vim-jsx'
 Plug 'rakr/vim-one'
 Plug 'leafgarland/typescript-vim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-Plug 'ms-jpq/coq.artifacts'
-Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 Plug 'glepnir/lspsaga.nvim'
 "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'morhetz/gruvbox'
 Plug 'dag/vim-fish'
 Plug 'jparise/vim-graphql'
 Plug 'tpope/vim-fugitive'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
 
 call plug#end()
 

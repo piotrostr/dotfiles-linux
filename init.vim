@@ -5,7 +5,6 @@ source ~/.vimrc
 
 lua << EOF
 local lsp = require "lspconfig"
-local coq = require "coq"
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -33,25 +32,39 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-  if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command [[augroup Format]]
-    vim.api.nvim_command [[autocmd! * <buffer>]]
-    vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
-    vim.api.nvim_command [[autocmd BufWritePre <buffer> EslintFixAll]]
-    vim.api.nvim_command [[augroup END]]
-  end
+  
+  -- if client.resolved_capabilities.document_formatting then
+  --   vim.api.nvim_command [[augroup Format]]
+  --   vim.api.nvim_command [[autocmd! * <buffer>]]
+  --   vim.api.nvim_command [[ autocmd BufWritePre <buffer> PrettierAsync]]
+  --   vim.api.nvim_command [[autocmd BufWritePre <buffer> EslintFixAll]]
+  --   vim.api.nvim_command [[augroup END]]
+  -- end
 end
+
+-- lsp.eslint.setup{}
 
 lsp.pyright.setup{
   on_attach = on_attach
 }
 
-lsp.eslint.setup{}
 
-lsp.tsserver.setup{
-  on_attach = on_attach
-}
+lsp.gopls.setup{}
 
-vim.cmd('COQnow -s')
 EOF
 
+"coc setup
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
