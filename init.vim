@@ -51,6 +51,25 @@ lsp.pyright.setup{
 
 lsp.gopls.setup{}
 
+lsp.tsserver.setup{}
+
+require('nvim-autopairs').setup{}
+
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true
+  },
+  incremental_selection = {
+    enable = false
+  }
+  autotag = {
+    enable = true,
+  },
+  ensure_installed = {'javascript'}
+}
+
+require('nvim-ts-autotag').setup()
+
 EOF
 
 "coc setup
@@ -68,3 +87,26 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
+
+
+"nerd tree setup
+
+" Start NERDTree and leave the cursor in it.
+autocmd VimEnter * NERDTree | wincmd p 
+
+" Start NERDTree when Vim is started without file arguments.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+" autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+
+"toggle nerdtree
+nnoremap <C-H> :NERDTreeToggle<cr>
+
