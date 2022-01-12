@@ -3,7 +3,6 @@ set -U fish_user_paths /opt/homebrew/bin $fish_user_paths
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 status is-interactive &&
-
   eval /Users/piotrostrowski/miniconda/bin/conda "shell.fish" "hook" $argv | source && 
   conda deactivate &&
   conda activate &&
@@ -11,7 +10,7 @@ status is-interactive &&
 
 set fish_greeting ""
 
-set -gx TERM screen-256color
+set -gx TERM xterm-256color
 
 # theme
 set -g theme_color_scheme terminal-dark
@@ -25,18 +24,23 @@ alias ls "ls -p -G"
 alias la "ls -A"
 alias ll "ls -l"
 alias lla "ll -A"
-alias g git
+alias g "git"
+alias ga "git add"
+alias gc "git commit"
+alias gp "git push"
+alias gs "git status"
 command -qv nvim && alias vim nvim
 alias vi nvim
-
-alias eslint "eslint_d"
 
 set -gx EDITOR nvim
 
 set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
+set -gx PATH ~/go/bin $PATH
+set -gx GOPATH ~/go
 set -gx REACT_DEBUGGER "open -g 'rndebugger://set-debugger-loc?port=8081' ||" react-native start --reset-cache
+set -gx SDKROOT /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/
 
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
