@@ -29,6 +29,8 @@ alias ga "git add"
 alias gc "git commit"
 alias gp "git push"
 alias gs "git status"
+alias gd "git diff"
+alias gl "git log"
 command -qv nvim && alias vim nvim
 alias vi nvim
 
