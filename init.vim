@@ -312,6 +312,7 @@ lua << EOF
 require'nvim-treesitter.install'.compilers = { 'aarch64-apple-darwin21-gcc-11' }
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { 
+    "javascript",
     "tsx", 
     "json",
     "html",
@@ -329,14 +330,16 @@ require'nvim-treesitter.configs'.setup {
     disable = {},
   },
   autotag = {
-    enable = true
+    enable = true,
+    filetypes = {
+      "javascript.jsx", 
+      "typescript.tsx",
+      "html", 
+      "javascriptreact",
+      "javascript",
+      "typescript"
+    },
   }
-}
-local parser_config = require"nvim-treesitter.parsers".get_parser_configs()
-parser_config.tsx.used_by = {
-  "javascript",
-  "typescript.tsx",
-  "javascript.jsx"
 }
 EOF
 
