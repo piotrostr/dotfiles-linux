@@ -3,6 +3,7 @@ let &packpath=&runtimepath
 
 "plugins
 call plug#begin('~/.vim/plugged')
+
 Plug 'tomlion/vim-solidity'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -10,7 +11,6 @@ Plug 'rakr/vim-one'
 Plug 'leafgarland/typescript-vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'glepnir/lspsaga.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "Plug 'morhetz/gruvbox'
 Plug 'dag/vim-fish'
 Plug 'jparise/vim-graphql'
@@ -18,12 +18,14 @@ Plug 'tpope/vim-fugitive'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree-project-plugin'
+
+"nerd tree, I decided not to use it as I prefer :Ex 
+"Plug 'preservim/nerdtree'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'scrooloose/nerdtree-project-plugin'
+"
 Plug 'windwp/nvim-autopairs'
-Plug 'windwp/nvim-ts-autotag'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -31,6 +33,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'nvim-lua/popup.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'windwp/nvim-ts-autotag'
+
 call plug#end()
 
 "basic settings
@@ -54,8 +59,17 @@ nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
-"make ctrl+T open edited file in new tab
-nnoremap <silent> <C-w>T :tab split<CR>
+"make ctrl+t open edited file in new tab
+nmap <silent> <c-t> :tab split<CR>
+
+"make ctrl+e open up explorer
+nmap <silent> <c-e> :Ex<CR>
+
+"next buffer using ctrl+b
+nmap <silent> <c-b> :bn<CR>
+
+"previous buffer using ctrl+b
+nmap <silent> <c-b> :bp<CR>
 
 "lsp stuff
 lua << EOF
@@ -106,6 +120,15 @@ require'telescope'.setup{
   },
 }
 
+local saga = require 'lspsaga'
+saga.init_lsp_saga {
+  error_sign = '',
+  warn_sign = '',
+  hint_sign = '',
+  infor_sign = '',
+  border_style = "round",
+}
+
 EOF
 
 "coc setup
@@ -126,28 +149,28 @@ let g:coc_snippet_next = '<tab>'
 
 nmap <silent>qf  <Plug>(coc-fix-current)
 
-"nerd tree setup
-" show hidden files
-let NERDTreeShowHidden=1
-
-" Start NERDTree and leave the cursor in it.
-autocmd VimEnter * NERDTree | wincmd p
-
-" Start NERDTree when Vim is started without file arguments.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
-
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-" Close the tab if NERDTree is the only window remaining in it.
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-" Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
-
-"toggle nerdtree
-nnoremap <C-S> :NERDTreeToggle<cr>
+""nerd tree setup
+"" show hidden files
+"let NERDTreeShowHidden=1
+"
+"" Start NERDTree and leave the cursor in it.
+"autocmd VimEnter * NERDTree | wincmd p
+"
+"" Start NERDTree when Vim is started without file arguments.
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+"
+"" Exit Vim if NERDTree is the only window remaining in the only tab.
+"autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+"
+"" Close the tab if NERDTree is the only window remaining in it.
+"autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+"
+"" Open the existing NERDTree on each new tab.
+"autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+"
+""toggle nerdtree
+"nnoremap <C-S> :NERDTreeToggle<cr>
 
 " set up telescope bindings
 nnoremap <silent> ;f <cmd>Telescope find_files<cr>
@@ -281,3 +304,39 @@ let g:airline_theme='base16_solarized_dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_splits = 0
+" remove buffer from tabline if its closed
+autocmd BufDelete * call airline#extensions#tabline#buflist#invalidate()
+
+"treesitter setup
+lua << EOF
+require'nvim-treesitter.install'.compilers = { 'aarch64-apple-darwin21-gcc-11' }
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { 
+    "tsx", 
+    "json",
+    "html",
+    "python",
+    "typescript", 
+    "lua",
+    "go"
+  },
+  highlight = {
+    enable = true,
+    disable = {},
+  },
+  indent = {
+    enable = false,
+    disable = {},
+  },
+  autotag = {
+    enable = true
+  }
+}
+local parser_config = require"nvim-treesitter.parsers".get_parser_configs()
+parser_config.tsx.used_by = {
+  "javascript",
+  "typescript.tsx",
+  "javascript.jsx"
+}
+EOF
+
