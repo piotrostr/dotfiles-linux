@@ -35,6 +35,9 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'windwp/nvim-ts-autotag'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/fern-mapping-git.vim'
 
 call plug#end()
 
@@ -65,11 +68,11 @@ nmap <silent> <c-t> :tab split<CR>
 "make ctrl+e open up explorer
 nmap <silent> <c-e> :Ex<CR>
 
-"next buffer using ctrl+b
-nmap <silent> <c-b> :bn<CR>
+"next buffer using ctrl+n
+nmap <silent> <c-n> :bn<CR>
 
-"previous buffer using ctrl+b
-nmap <silent> <c-b> :bp<CR>
+"previous buffer using ctrl+p
+nmap <silent> <c-p> :bp<CR>
 
 "lsp stuff
 lua << EOF
@@ -83,22 +86,9 @@ local on_attach = function(client, bufnr)
   local opts = { noremap=true, silent=true }
 
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
 end
 
@@ -120,15 +110,6 @@ require'telescope'.setup{
   },
 }
 
-local saga = require 'lspsaga'
-saga.init_lsp_saga {
-  error_sign = '',
-  warn_sign = '',
-  hint_sign = '',
-  infor_sign = '',
-  border_style = "round",
-}
-
 EOF
 
 "coc setup
@@ -148,6 +129,9 @@ endfunction
 let g:coc_snippet_next = '<tab>'
 
 nmap <silent>qf  <Plug>(coc-fix-current)
+
+nmap <silent>gd <Plug>(coc-definition)
+nmap <silent>gr <Plug>(coc-references)
 
 ""nerd tree setup
 "" show hidden files
@@ -171,6 +155,10 @@ nmap <silent>qf  <Plug>(coc-fix-current)
 "
 ""toggle nerdtree
 "nnoremap <C-S> :NERDTreeToggle<cr>
+
+"toggle fern drawer 
+noremap <silent> <C-F> <cmd>Fern . -drawer -toggle<cr>
+
 
 " set up telescope bindings
 nnoremap <silent> ;f <cmd>Telescope find_files<cr>
