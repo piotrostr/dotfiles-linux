@@ -1,0 +1,24 @@
+# open terminal
+cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+
+# focus window
+cmd - h : yabai -m window --focus west 
+cmd - j : yabai -m window --focus south
+cmd - k : yabai -m window --focus north
+cmd - l : yabai -m window --focus east
+
+# move window
+shift + cmd - h : yabai -m window --warp west
+shift + cmd - j : yabai -m window --warp south
+shift + cmd - k : yabai -m window --warp north
+shift + cmd - l : yabai -m window --warp east
+
+# create desktop and follow focus
+shift + cmd - n : yabai -m space --create
+
+# go to monitor
+f1 : yabai -m display --focus 1
+f2 : yabai -m display --focus 2
+f3 : yabai -m display --focus 3
+
+# TODO
