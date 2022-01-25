@@ -13,12 +13,20 @@ shift + cmd - j : yabai -m window --warp south
 shift + cmd - k : yabai -m window --warp north
 shift + cmd - l : yabai -m window --warp east
 
-# create desktop and follow focus
-shift + cmd - n : yabai -m space --create
+# create desktop and move focus
+shift + cmd - n : yabai -m space --create; \
+                  id=$(yabai -m query --displays | jq '.[]' | jq '.spaces' | jq '.[-1]'); \
+                  yabai -m space --focus $id
 
-# go to monitor
-f1 : yabai -m display --focus 1
-f2 : yabai -m display --focus 2
-f3 : yabai -m display --focus 3
 
-# TODO
+# delete current desktop
+shift + cmd - 0x29 : yabai -m space --destroy
+
+# go to desktop
+f1 : yabai -m space --focus 1
+f2 : yabai -m space --focus 2
+f3 : yabai -m space --focus 3
+f4 : yabai -m space --focus 4
+f5 : yabai -m space --focus 5
+f6 : yabai -m space --focus 6
+
