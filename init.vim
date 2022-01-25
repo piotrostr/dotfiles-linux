@@ -1,45 +1,7 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath=&runtimepath
 
-"plugins
-call plug#begin('~/.vim/plugged')
-
-Plug 'tomlion/vim-solidity'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'rakr/vim-one'
-Plug 'leafgarland/typescript-vim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'glepnir/lspsaga.nvim'
-"Plug 'morhetz/gruvbox'
-Plug 'dag/vim-fish'
-Plug 'jparise/vim-graphql'
-Plug 'tpope/vim-fugitive'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
-Plug 'ryanoasis/vim-devicons'
-
-"nerd tree, I decided not to use it as I prefer :Ex 
-"Plug 'preservim/nerdtree'
-"Plug 'Xuyuanp/nerdtree-git-plugin'
-"Plug 'scrooloose/nerdtree-project-plugin'
-"
-Plug 'windwp/nvim-autopairs'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'sindrets/diffview.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'nvim-lua/popup.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'windwp/nvim-ts-autotag'
-Plug 'lambdalisue/fern.vim'
-Plug 'lambdalisue/fern-git-status.vim'
-Plug 'lambdalisue/fern-mapping-git.vim'
-
-call plug#end()
+runtime ./plug.vim
 
 "basic settings
 syntax enable
@@ -53,6 +15,8 @@ set number
 set hlsearch
 set ruler
 set autoindent
+set number relativenumber
+colorscheme gruvbox
 let g:python_host_prog = '/Users/piotrostrowski/miniconda/bin/python'
 let g:python3_host_prog = '/Users/piotrostrowski/miniconda/bin/python3'
 
@@ -74,44 +38,6 @@ nmap <silent> <c-n> :bn<CR>
 "previous buffer using ctrl+p
 nmap <silent> <c-p> :bp<CR>
 
-"lsp stuff
-lua << EOF
-
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  local opts = { noremap=true, silent=true }
-
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-
-end
-
-require"lspconfig".tsserver.setup {
-  on_attach = on_attach
-}
-
-require'nvim-autopairs'.setup{}
-
-local actions = require('telescope.actions')
-require'telescope'.setup{
-  defaults = {
-    mappings = {
-      n = {
-        ["q"] = actions.close
-      },
-    },
-    file_ignore_patterns = { "node%_modules/.*" }
-  },
-}
-
-EOF
-
 "coc setup
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
@@ -128,33 +54,26 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-nmap <silent>qf  <Plug>(coc-fix-current)
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
-nmap <silent>gd <Plug>(coc-definition)
-nmap <silent>gr <Plug>(coc-references)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+inoremap <silent><expr> <c-space> coc#refresh()
+nmap <silent> qf <Plug>(coc-fix-current)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gy <Plug>(coc-type-definition)
 
-""nerd tree setup
-"" show hidden files
-"let NERDTreeShowHidden=1
-"
-"" Start NERDTree and leave the cursor in it.
-"autocmd VimEnter * NERDTree | wincmd p
-"
-"" Start NERDTree when Vim is started without file arguments.
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
-"
-"" Exit Vim if NERDTree is the only window remaining in the only tab.
-"autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-"
-"" Close the tab if NERDTree is the only window remaining in it.
-"autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-"
-"" Open the existing NERDTree on each new tab.
-"autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
-"
-""toggle nerdtree
-"nnoremap <C-S> :NERDTreeToggle<cr>
+set updatetime=300
+set hidden
+set encoding=utf-8
 
 "toggle fern drawer 
 noremap <silent> <C-F> <cmd>Fern . -drawer -toggle<cr>
@@ -165,18 +84,6 @@ nnoremap <silent> ;f <cmd>Telescope find_files<cr>
 nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
-
-" NeoSolarized theme setup
-if exists("&termguicolors") && exists("&winblend")
-  set termguicolors
-  set winblend=0
-  set wildoptions=pum
-  set pumblend=5
-  set background=dark
-  let g:neosolarized_termtrans=1
-  runtime ./colors/NeoSolarized.vim
-  colorscheme NeoSolarized
-endif
 
 " difftool setup
 lua << EOF
@@ -288,7 +195,7 @@ require'diffview'.setup {
 EOF
 
 " airline setup
-let g:airline_theme='base16_solarized_dark'
+let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_splits = 0
@@ -329,5 +236,17 @@ require'nvim-treesitter.configs'.setup {
     },
   }
 }
-EOF
 
+local actions = require('telescope.actions')
+require'telescope'.setup{
+  defaults = {
+    mappings = {
+      n = {
+        ["q"] = actions.close
+      },
+    },
+    file_ignore_patterns = { "node%_modules/.*" }
+  },
+}
+
+EOF

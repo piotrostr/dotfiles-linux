@@ -1,0 +1,30 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "markdown",
+    "json",
+    "javascript",
+    "javascriptreact",
+    "graphql",
+    "solidity"
+  ],
+  "coc.preferences.enableFloatHighlight": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.run": "onSave",
+  "prettier.formatterPriority": 4,
+  "languageserver": {
+    "graphql": {
+      "command": "graphql-lsp",
+      "args": ["server", "-m", "stream"],
+      "filetypes": ["graphql"]
+    },
+    "solidity": {
+      "command": "/opt/homebrew/bin/solc",
+      "args": ["--lsp"],
+      "trace.server": "verbose",
+      "rootPatterns": [".git/"],
+      "filetypes": ["solidity"]
+    }
+  },
+  "tsserver.npm": "/Users/piotrostrowski/.nvm/versions/node/v17.4.0/bin/npm"
+}
