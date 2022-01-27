@@ -17,8 +17,9 @@ set ruler
 set autoindent
 set number relativenumber
 colorscheme gruvbox
-let g:python_host_prog = '/Users/piotrostrowski/miniconda/bin/python'
+let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/Users/piotrostrowski/miniconda/bin/python3'
+set termguicolors
 
 " navigate without control w, just control
 nmap <silent> <c-k> :wincmd k<CR>
@@ -39,6 +40,7 @@ nmap <silent> <c-n> :bn<CR>
 nmap <silent> <c-p> :bp<CR>
 
 "coc setup
+
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 inoremap <silent><expr> <TAB>
@@ -64,6 +66,7 @@ function! s:show_documentation()
   endif
 endfunction
 
+"lsp stuff
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
 nmap <silent> qf <Plug>(coc-fix-current)
@@ -71,13 +74,17 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gy <Plug>(coc-type-definition)
 
+"coc-git
+nmap gs <Plug>(coc-git-chunkinfo)
+nmap gc <Plug>(coc-git-commit)
+nmap <silent> gu <cmd>CocCommand git.chunkUndo<cr>
+
 set updatetime=300
 set hidden
 set encoding=utf-8
 
 "toggle fern drawer 
 noremap <silent> <C-F> <cmd>Fern . -drawer -toggle<cr>
-
 
 " set up telescope bindings
 nnoremap <silent> ;f <cmd>Telescope find_files<cr>
@@ -232,7 +239,8 @@ require'nvim-treesitter.configs'.setup {
       "html", 
       "javascriptreact",
       "javascript",
-      "typescript"
+      "typescript",
+      "typescriptreact"
     },
   }
 }
@@ -248,5 +256,7 @@ require'telescope'.setup{
     file_ignore_patterns = { "node%_modules/.*" }
   },
 }
+
+require'colorizer'.setup()
 
 EOF
