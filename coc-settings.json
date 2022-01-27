@@ -5,6 +5,8 @@
     "json",
     "javascript",
     "javascriptreact",
+    "typescript",
+    "typescriptreact",
     "graphql",
     "solidity"
   ],
@@ -26,5 +28,6 @@
       "filetypes": ["solidity"]
     }
   },
-  "tsserver.npm": "/Users/piotrostrowski/.nvm/versions/node/v17.4.0/bin/npm"
+  "tsserver.npm": "/Users/piotrostrowski/.nvm/versions/node/v17.4.0/bin/npm",
+  "git.enableGlobalStatus": false
 }
