@@ -29,5 +29,6 @@ Plug 'lambdalisue/fern-mapping-git.vim'
 Plug 'dylanaraps/wal.vim'
 Plug 'morhetz/gruvbox'
 Plug 'sohkai/syntastic-local-solhint'
+Plug 'norcalli/nvim-colorizer.lua'
 
 call plug#end()
