@@ -16,7 +16,16 @@ shift + cmd - l : yabai -m window --warp east
 # create desktop and move focus
 shift + cmd - n : yabai -m space --create; \
                   id=$(yabai -m query --displays | jq '.[]' | jq '.spaces' | jq '.[-1]'); \
-                  yabai -m space --focus $id
+                  yabai -m window --space $id
+                  # yabai -m space --focus $id \  # do that if also want to move focus
+                  
+                  
+# move window to given desktop and move focus
+alt - 1 : yabai -m window --space 1
+alt - 2 : yabai -m window --space 2
+alt - 3 : yabai -m window --space 3
+alt - 4 : yabai -m window --space 4
+alt - 5 : yabai -m window --space 5
 
 
 # delete current desktop
@@ -30,3 +39,9 @@ f4 : yabai -m space --focus 4
 f5 : yabai -m space --focus 5
 f6 : yabai -m space --focus 6
 
+
+# alt - h :  || yabai -m display --focus west
+# alt - j : yabai -m window --focus south || yabai -m display --focus south
+# alt - k : yabai -m window --focus north || yabai -m display --focus north
+# alt - l : yabai -m window --focus east || yabai -m display --focus east
+# WIN_ID=$(yabai -m query --windows --window | jq '.id') && yabai -m window --display recent && yabai -m window --focus $WIN_ID
