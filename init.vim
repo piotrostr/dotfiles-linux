@@ -2,6 +2,7 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath=&runtimepath
 
 runtime ./plug.vim
+runtime ./telescope.vim
 
 "basic settings
 syntax enable
@@ -26,9 +27,6 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
-
-"make ctrl+t open edited file in new tab
-nmap <silent> <c-t> :tab split<CR>
 
 "make ctrl+e open up explorer
 nmap <silent> <c-e> :Ex<CR>
@@ -66,6 +64,12 @@ function! s:show_documentation()
   endif
 endfunction
 
+"debugger keybindings
+nmap <silent> do <cmd>lua require("dapui").open()<cr>
+nmap <silent> dx <cmd>lua require("dapui").close()<cr>
+nmap <silent> dt <cmd>lua require("dapui").toggle()<cr>
+nmap <silent> <c-b> <cmd>lua require("dap").toggle_breakpoint()<cr>
+
 "lsp stuff
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -92,8 +96,30 @@ nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
 
-" difftool setup
+" airline setup
+let g:airline_theme='gruvbox'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#show_splits = 0
+" remove buffer from tabline if its closed
+autocmd BufDelete * call airline#extensions#tabline#buflist#invalidate()
+
 lua << EOF
+
+--telescope setup
+local actions = require('telescope.actions')
+require'telescope'.setup{
+  defaults = {
+    mappings = {
+      n = {
+        ["q"] = actions.close
+      },
+    },
+    file_ignore_patterns = { "node%_modules/.*" }
+  },
+}
+
+--difftool setup
 local cb = require'diffview.config'.diffview_callback
 
 require'diffview'.setup {
@@ -199,18 +225,8 @@ require'diffview'.setup {
     },
   },
 }
-EOF
 
-" airline setup
-let g:airline_theme='gruvbox'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#show_splits = 0
-" remove buffer from tabline if its closed
-autocmd BufDelete * call airline#extensions#tabline#buflist#invalidate()
-
-"treesitter setup
-lua << EOF
+--treesitter setup
 require'nvim-treesitter.install'.compilers = { 'aarch64-apple-darwin21-gcc-11' }
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { 
@@ -245,18 +261,83 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
-local actions = require('telescope.actions')
-require'telescope'.setup{
-  defaults = {
-    mappings = {
-      n = {
-        ["q"] = actions.close
+require'colorizer'.setup()
+
+-- debugger setup
+require("dapui").setup({
+  icons = { expanded = "▾", collapsed = "▸" },
+  mappings = {
+    expand = "<c-l>",
+    open = "o",
+    remove = "d",
+    edit = "e",
+    repl = "r",
+  },
+  sidebar = {
+    elements = {
+      {
+        id = "scopes",
+        size = 0.25,
       },
+      { id = "breakpoints", size = 0.25 },
+      { id = "stacks", size = 0.25 },
+      { id = "watches", size = 00.25 },
     },
-    file_ignore_patterns = { "node%_modules/.*" }
+    size = 40,
+    position = "left",
+  },
+  tray = {
+    elements = { "repl" },
+    size = 15,
+    position = "bottom", 
+  },
+  floating = {
+    max_height = nil, 
+    max_width = nil, 
+    border = "single", 
+    mappings = {
+      close = { "q", "<Esc>", "c-[" },
+    },
+  },
+  windows = { indent = 1 },
+})
+
+local dap = require('dap')
+
+dap.adapters.python = {
+  type = 'executable';
+  command = '/Users/piotrostrowski/miniconda/bin/python';
+  args = { '-m', 'debugpy.adapter' };
+}
+
+dap.configurations.python = {
+  {
+    type = 'python';
+    request = 'launch';
+    name = "Launch file";
+    program = "${file}";
+    pythonPath = function()
+      return '/Users/piotrostrowski/miniconda/bin/python'
+    end;
   },
 }
 
-require'colorizer'.setup()
+-- tmux bindings
+require'tmux'.setup{
+    copy_sync = {
+        enable = false,
+        ignore_buffers = { empty = false },
+        redirect_to_clipboard = true,
+        register_offset = 0,
+        sync_clipboard = true,
+        sync_deletes = true,
+        sync_unnamed = true,
+    },
+    navigation = {
+        cycle_navigation = true,
+        enable_default_keybindings = true,
+        persist_zoom = false,
+    }
+}
 
 EOF

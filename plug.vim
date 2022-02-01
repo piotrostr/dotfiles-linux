@@ -30,5 +30,9 @@ Plug 'dylanaraps/wal.vim'
 Plug 'morhetz/gruvbox'
 Plug 'sohkai/syntastic-local-solhint'
 Plug 'norcalli/nvim-colorizer.lua'
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'mfussenegger/nvim-dap-python'
+Plug 'aserowy/tmux.nvim'
 
 call plug#end()
