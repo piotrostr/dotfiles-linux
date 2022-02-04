@@ -1,12 +1,29 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath=&runtimepath
-
 runtime ./plug.vim
-runtime ./telescope.vim
 
-"basic settings
 syntax enable
 filetype plugin indent on
+
+let &packpath=&runtimepath
+let g:dashboard_default_executive ='telescope'
+let g:python3_host_prog = '/Users/piotrostrowski/miniconda/bin/python'
+let g:onedark_config = { 'style': 'deep', 'transparent': 'true' }
+let g:tokyonight_style = 'night'
+let g:glow_binary_path = '/opt/homebrew/bin'
+let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_install_gadgets = [ 'debugpy' ]
+let g:airline_theme = 'serene'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#show_splits = 0
+let g:coc_snippet_next = '<tab>'
+let g:rnvimr_enable_ex = 1
+let g:rnvimr_hide_gitignore = 1
+let g:rnvimr_enable_bw = 1
+
+set updatetime=300
+set hidden
+set encoding=utf-8
 set shiftwidth=2
 set autoindent
 set smartindent
@@ -17,19 +34,18 @@ set hlsearch
 set ruler
 set autoindent
 set number relativenumber
-colorscheme gruvbox
-let g:python_host_prog = '/usr/bin/python'
-let g:python3_host_prog = '/Users/piotrostrowski/miniconda/bin/python3'
 set termguicolors
 
-" navigate without control w, just control
+"colorschemes
+"colorscheme gruvbox
+"colorscheme tokyonight
+colorscheme onedark
+
+"navigate without control w, just control
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
-
-"make ctrl+e open up explorer
-nmap <silent> <c-e> :Ex<CR>
 
 "next buffer using ctrl+n
 nmap <silent> <c-n> :bn<CR>
@@ -37,8 +53,25 @@ nmap <silent> <c-n> :bn<CR>
 "previous buffer using ctrl+p
 nmap <silent> <c-p> :bp<CR>
 
-"coc setup
+command! Ex :RnvimrToggle
+command! Vex :RnvimrToggle
+command! Sex :RnvimrToggle
 
+"save and load sessions
+nmap <space> <Leader>
+nmap <Leader>ss :<C-u>SessionSave<CR>
+nmap <Leader>sl :<C-u>SessionLoad<CR>
+
+"coc setup
+nmap gs <Plug>(coc-git-chunkinfo)
+nmap gk <Plug>(coc-git-commit)
+nmap <silent> gu <cmd>CocCommand git.chunkUndo<cr>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+inoremap <silent><expr> <c-space> coc#refresh()
+nmap <silent> qf <Plug>(coc-fix-current)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gy <Plug>(coc-type-definition)
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 inoremap <silent><expr> <TAB>
@@ -52,8 +85,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
-
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -65,46 +96,30 @@ function! s:show_documentation()
 endfunction
 
 "debugger keybindings
-nmap <silent> do <cmd>lua require("dapui").open()<cr>
-nmap <silent> dx <cmd>lua require("dapui").close()<cr>
-nmap <silent> dt <cmd>lua require("dapui").toggle()<cr>
-nmap <silent> <c-b> <cmd>lua require("dap").toggle_breakpoint()<cr>
+nmap <silent> do <Plug>VimspectorContinue
+nmap <silent> dq <Plug>VimspectorStop
+nmap <silent> ds <Plug>VimspectorBalloonEval
+xmap <silent> ds <Plug>VimspectorBalloonEval
+nmap <silent> dO <Plug>VimspectorStepOver
+nmap <silent> di <Plug>VimspectorStepInto
+nmap <silent> dI <Plug>VimspectorStepOut
+nmap <silent> df <Plug>VimspectorUpFrame
+nmap <silent> dF <Plug>VimspectorDownFrame
+nmap <silent> dp <Plug>VimspectorToggleBreakpoint
 
-"lsp stuff
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-inoremap <silent><expr> <c-space> coc#refresh()
-nmap <silent> qf <Plug>(coc-fix-current)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gy <Plug>(coc-type-definition)
-
-"coc-git
-nmap gs <Plug>(coc-git-chunkinfo)
-nmap gc <Plug>(coc-git-commit)
-nmap <silent> gu <cmd>CocCommand git.chunkUndo<cr>
-
-set updatetime=300
-set hidden
-set encoding=utf-8
-
-"toggle fern drawer 
-noremap <silent> <C-F> <cmd>Fern . -drawer -toggle<cr>
-
-" set up telescope bindings
+"set up telescope bindings
 nnoremap <silent> ;f <cmd>Telescope find_files<cr>
 nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
 
-" airline setup
-let g:airline_theme='gruvbox'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#show_splits = 0
-" remove buffer from tabline if its closed
+"remove buffer from tabline if its closed
 autocmd BufDelete * call airline#extensions#tabline#buflist#invalidate()
 
 lua << EOF
+
+--setup comment
+require('Comment').setup()
 
 --telescope setup
 local actions = require('telescope.actions')
@@ -229,15 +244,16 @@ require'diffview'.setup {
 --treesitter setup
 require'nvim-treesitter.install'.compilers = { 'aarch64-apple-darwin21-gcc-11' }
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { 
+  ensure_installed = {
     "javascript",
-    "tsx", 
+    "tsx",
     "json",
     "html",
     "python",
-    "typescript", 
+    "typescript",
     "lua",
-    "go"
+    "go",
+    "solidity"
   },
   highlight = {
     enable = true,
@@ -250,77 +266,28 @@ require'nvim-treesitter.configs'.setup {
   autotag = {
     enable = true,
     filetypes = {
-      "javascript.jsx", 
+      "javascript.jsx",
       "typescript.tsx",
-      "html", 
+      "html",
       "javascriptreact",
       "javascript",
       "typescript",
-      "typescriptreact"
+      "typescriptreact",
+      "solidity"
     },
   }
 }
 
+require "nvim-treesitter.parsers".get_parser_configs().solidity = {
+  install_info = {
+    url = "https://github.com/JoranHonig/tree-sitter-solidity",
+    files = {"src/parser.c"},
+    requires_generate_from_grammar = true,
+  },
+  filetype = 'solidity'
+}
+
 require'colorizer'.setup()
-
--- debugger setup
-require("dapui").setup({
-  icons = { expanded = "▾", collapsed = "▸" },
-  mappings = {
-    expand = "<c-l>",
-    open = "o",
-    remove = "d",
-    edit = "e",
-    repl = "r",
-  },
-  sidebar = {
-    elements = {
-      {
-        id = "scopes",
-        size = 0.25,
-      },
-      { id = "breakpoints", size = 0.25 },
-      { id = "stacks", size = 0.25 },
-      { id = "watches", size = 00.25 },
-    },
-    size = 40,
-    position = "left",
-  },
-  tray = {
-    elements = { "repl" },
-    size = 15,
-    position = "bottom", 
-  },
-  floating = {
-    max_height = nil, 
-    max_width = nil, 
-    border = "single", 
-    mappings = {
-      close = { "q", "<Esc>", "c-[" },
-    },
-  },
-  windows = { indent = 1 },
-})
-
-local dap = require('dap')
-
-dap.adapters.python = {
-  type = 'executable';
-  command = '/Users/piotrostrowski/miniconda/bin/python';
-  args = { '-m', 'debugpy.adapter' };
-}
-
-dap.configurations.python = {
-  {
-    type = 'python';
-    request = 'launch';
-    name = "Launch file";
-    program = "${file}";
-    pythonPath = function()
-      return '/Users/piotrostrowski/miniconda/bin/python'
-    end;
-  },
-}
 
 -- tmux bindings
 require'tmux'.setup{
@@ -338,6 +305,24 @@ require'tmux'.setup{
         enable_default_keybindings = true,
         persist_zoom = false,
     }
+}
+
+require'autosave'.setup{
+  enabled = false,
+  execution_message = function ()
+    return "AutoSave: saved at " .. vim.fn.strftime("%H:%M:%S")
+  end,
+  events = {"InsertLeave", "TextChanged"},
+  conditions = {
+          exists = true,
+          filename_is_not = {},
+          filetype_is_not = {},
+          modifiable = true,
+  },
+  write_all_buffers = false,
+  on_off_commands = false,
+  clean_command_line_interval = 0,
+  debounce_delay = 135
 }
 
 EOF

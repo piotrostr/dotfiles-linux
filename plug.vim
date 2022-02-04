@@ -1,9 +1,6 @@
 "plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'tomlion/vim-solidity'
-Plug 'pangloss/vim-javascript'
-Plug 'chemzqm/vim-jsx-improve'
 Plug 'rakr/vim-one'
 Plug 'leafgarland/typescript-vim'
 Plug 'morhetz/gruvbox'
@@ -23,16 +20,24 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'windwp/nvim-ts-autotag'
-Plug 'lambdalisue/fern.vim'
-Plug 'lambdalisue/fern-git-status.vim'
-Plug 'lambdalisue/fern-mapping-git.vim'
 Plug 'dylanaraps/wal.vim'
 Plug 'morhetz/gruvbox'
 Plug 'sohkai/syntastic-local-solhint'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'mfussenegger/nvim-dap'
-Plug 'rcarriga/nvim-dap-ui'
-Plug 'mfussenegger/nvim-dap-python'
 Plug 'aserowy/tmux.nvim'
+Plug 'puremourning/vimspector'
+Plug 'TovarishFin/vim-solidity'
+Plug 'Pocco81/AutoSave.nvim'
+Plug 'projekt0n/github-nvim-theme'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'fladson/vim-kitty'
+Plug 'navarasu/onedark.nvim'
+Plug 'glepnir/dashboard-nvim'
+Plug 'kevinhwang91/rnvimr'
+Plug 'numToStr/Comment.nvim'
+Plug 'karb94/neoscroll.nvim'
+Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
 
 call plug#end()
