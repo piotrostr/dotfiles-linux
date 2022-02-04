@@ -8,7 +8,9 @@
     "typescript",
     "typescriptreact",
     "graphql",
-    "solidity"
+    "solidity",
+    "python",
+    "go"
   ],
   "coc.preferences.enableFloatHighlight": true,
   "eslint.autoFixOnSave": true,
@@ -26,8 +28,62 @@
       "trace.server": "verbose",
       "rootPatterns": [".git/"],
       "filetypes": ["solidity"]
+    },
+    "efm": {
+      "command": "efm-langserver",
+      "args": [
+        "-c",
+        "/Users/piotrostrowski/.config/efm-langserver/config.yaml"
+      ],
+      "filetypes": ["vim", "eruby", "markdown", "yaml"]
     }
   },
+  "git.enableGlobalStatus": false,
   "tsserver.npm": "/Users/piotrostrowski/.nvm/versions/node/v17.4.0/bin/npm",
-  "git.enableGlobalStatus": false
+  "pyright.server": "/Users/piotrostrowski/.nvm/versions/node/v17.4.0/bin/pyright-langserver",
+  "python.pythonPath": "/Users/piotrostrowski/miniconda/bin/python",
+  "python.formatting.provider": "yapf",
+  "pyright.enable": true,
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.useLibraryCodeForTypes": true,
+  "go.enable": true,
+  "go.trace.server": "verbose",
+  "go.goplsUseDaemon": true,
+  "go.checkForUpdates": "install",
+  "lua.enable": true,
+  "typescript.suggest.classMemberSnippets.enabled": true,
+  "suggest.fixInsertedWord": true,
+  "suggest.removeDuplicateItems": false,
+  "suggest.triggerCompletionWait": 30,
+  "suggest.maxCompleteItemCount": 100,
+  "suggest.completionItemKindLabels": {
+    "method": "  ",
+    "function": "  ",
+    "variable": "  ",
+    "field": "  ",
+    "typeParameter": "  ",
+    "constant": "  ",
+    "class": " פּ ",
+    "interface": "  ",
+    "struct": "  ",
+    "event": "  ",
+    "operator": "  ",
+    "module": "  ",
+    "property": "  ",
+    "enum": " 練",
+    "reference": "  ",
+    "keyword": "  ",
+    "file": "  ",
+    "folder": " ﱮ ",
+    "color": "  ",
+    "unit": " 塞 ",
+    "snippet": "  ",
+    "text": "  ",
+    "constructor": "  ",
+    "value": "  ",
+    "enumMember": "  "
+  },
+  "snippets.loadFromExtensions": true,
+  "suggest.languageSourcePriority": 99,
+  "coc.preferences.colorSupport": true
 }
