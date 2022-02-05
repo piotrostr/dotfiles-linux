@@ -35,9 +35,11 @@ Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'fladson/vim-kitty'
 Plug 'navarasu/onedark.nvim'
 Plug 'glepnir/dashboard-nvim'
-Plug 'kevinhwang91/rnvimr'
+"Plug 'kevinhwang91/rnvimr'
 Plug 'numToStr/Comment.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
+Plug 'rafaqz/ranger.vim'
+Plug 'dylanaraps/wal.vim'
 
 call plug#end()

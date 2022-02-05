@@ -7,19 +7,13 @@ filetype plugin indent on
 let &packpath=&runtimepath
 let g:dashboard_default_executive ='telescope'
 let g:python3_host_prog = '/Users/piotrostrowski/miniconda/bin/python'
-let g:onedark_config = { 'style': 'deep', 'transparent': 'true' }
+let g:onedark_config = { 'style': 'deep' }
 let g:tokyonight_style = 'night'
-let g:glow_binary_path = '/opt/homebrew/bin'
-let g:vimspector_enable_mappings = 'HUMAN'
-let g:vimspector_install_gadgets = [ 'debugpy' ]
-let g:airline_theme = 'serene'
+let g:airline_theme = 'simple'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_splits = 0
 let g:coc_snippet_next = '<tab>'
-let g:rnvimr_enable_ex = 1
-let g:rnvimr_hide_gitignore = 1
-let g:rnvimr_enable_bw = 1
 
 set updatetime=300
 set hidden
@@ -34,12 +28,18 @@ set hlsearch
 set ruler
 set autoindent
 set number relativenumber
-set termguicolors
+
 
 "colorschemes
 "colorscheme gruvbox
-"colorscheme tokyonight
-colorscheme onedark
+colorscheme tokyonight
+"colorscheme onedark
+set termguicolors
+
+hi Normal guibg=NONE ctermbg=NONE
+
+"remap leader to space
+nmap <space> <Leader>
 
 "navigate without control w, just control
 nmap <silent> <c-k> :wincmd k<CR>
@@ -53,12 +53,17 @@ nmap <silent> <c-n> :bn<CR>
 "previous buffer using ctrl+p
 nmap <silent> <c-p> :bp<CR>
 
-command! Ex :RnvimrToggle
-command! Vex :RnvimrToggle
-command! Sex :RnvimrToggle
+" ranger conf
+command! Ex :RangerEdit
+command! Vex :RangerVSplit
+command! Sex :RangerSplit
+
+map <leader>rr :RangerEdit<cr>
+map <leader>rv :RangerVSplit<cr>
+map <leader>rs :rangersplit<cr>
+map <leader>rt :RangerTab<cr>
 
 "save and load sessions
-nmap <space> <Leader>
 nmap <Leader>ss :<C-u>SessionSave<CR>
 nmap <Leader>sl :<C-u>SessionLoad<CR>
 
@@ -68,11 +73,14 @@ nmap gk <Plug>(coc-git-commit)
 nmap <silent> gu <cmd>CocCommand git.chunkUndo<cr>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
-nmap <silent> qf <Plug>(coc-fix-current)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gy <Plug>(coc-type-definition)
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+nmap <silent><leader>a  <Plug>(coc-codeaction)
+nnoremap <silent><leader>d  :<C-u>CocList diagnostics<cr>
+nmap <silent><leader>f <Plug>(coc-fix-current)
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
