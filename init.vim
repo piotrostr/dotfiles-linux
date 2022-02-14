@@ -1,19 +1,27 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 runtime ./plug.vim
 
-syntax enable
+syntax on
 filetype plugin indent on
 
 let &packpath=&runtimepath
 let g:dashboard_default_executive ='telescope'
-let g:python3_host_prog = '/Users/piotrostrowski/miniconda/bin/python'
 let g:onedark_config = { 'style': 'deep' }
 let g:tokyonight_style = 'night'
-let g:airline_theme = 'simple'
+let g:tokyonight_transparent = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_splits = 0
 let g:coc_snippet_next = '<tab>'
+let g:gruvbox_italic = 1
+let g:gruvbox_bold = 1
+let g:gruvbox_transparent_bg = 1
+
+if exists('+termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 set updatetime=300
 set hidden
@@ -28,13 +36,22 @@ set hlsearch
 set ruler
 set autoindent
 set number relativenumber
-
+set guicursor=i:block
 
 "colorschemes
+  if ($DAYTIME == 'day')
+    let g:onedark_config = {'style': 'light'}
+    let g:airline_theme = 'base16_one_light'
+    "set background=light
+  else
+    let g:onedark_config = {'style': 'darker'}
+    let g:airline_theme = 'onedark'
+    "set background=dark
+  endif
+
 "colorscheme gruvbox
-colorscheme tokyonight
-"colorscheme onedark
-set termguicolors
+"colorscheme tokyonight
+colorscheme onedark
 
 hi Normal guibg=NONE ctermbg=NONE
 
@@ -54,14 +71,14 @@ nmap <silent> <c-n> :bn<CR>
 nmap <silent> <c-p> :bp<CR>
 
 " ranger conf
-command! Ex :RangerEdit
-command! Vex :RangerVSplit
-command! Sex :RangerSplit
+" command! Ex :RangerEdit
+" command! Vex :RangerVSplit
+" command! Sex :RangerSplit
 
-map <leader>rr :RangerEdit<cr>
-map <leader>rv :RangerVSplit<cr>
-map <leader>rs :rangersplit<cr>
-map <leader>rt :RangerTab<cr>
+" map <leader>rr :RangerEdit<cr>
+" map <leader>rv :RangerVSplit<cr>
+" map <leader>rs :rangersplit<cr>
+" map <leader>rt :RangerTab<cr>
 
 "save and load sessions
 nmap <Leader>ss :<C-u>SessionSave<CR>
@@ -77,7 +94,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gy <Plug>(coc-type-definition)
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
 nmap <silent><leader>a  <Plug>(coc-codeaction)
 nnoremap <silent><leader>d  :<C-u>CocList diagnostics<cr>
 nmap <silent><leader>f <Plug>(coc-fix-current)
@@ -123,6 +139,14 @@ nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
 
 "remove buffer from tabline if its closed
 autocmd BufDelete * call airline#extensions#tabline#buflist#invalidate()
+
+autocmd FileType go call Go_settings()
+
+function! Go_settings()
+  setlocal tabstop=4
+  setlocal shiftwidth=4
+  setlocal expandtab
+endfunction
 
 lua << EOF
 
@@ -261,7 +285,6 @@ require'nvim-treesitter.configs'.setup {
     "typescript",
     "lua",
     "go",
-    "solidity"
   },
   highlight = {
     enable = true,
@@ -281,7 +304,6 @@ require'nvim-treesitter.configs'.setup {
       "javascript",
       "typescript",
       "typescriptreact",
-      "solidity"
     },
   }
 }
@@ -294,8 +316,6 @@ require "nvim-treesitter.parsers".get_parser_configs().solidity = {
   },
   filetype = 'solidity'
 }
-
-require'colorizer'.setup()
 
 -- tmux bindings
 require'tmux'.setup{

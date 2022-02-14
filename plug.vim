@@ -23,7 +23,6 @@ Plug 'windwp/nvim-ts-autotag'
 Plug 'dylanaraps/wal.vim'
 Plug 'morhetz/gruvbox'
 Plug 'sohkai/syntastic-local-solhint'
-Plug 'norcalli/nvim-colorizer.lua'
 Plug 'mfussenegger/nvim-dap'
 Plug 'aserowy/tmux.nvim'
 Plug 'puremourning/vimspector'
@@ -35,11 +34,10 @@ Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'fladson/vim-kitty'
 Plug 'navarasu/onedark.nvim'
 Plug 'glepnir/dashboard-nvim'
-"Plug 'kevinhwang91/rnvimr'
 Plug 'numToStr/Comment.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
-Plug 'rafaqz/ranger.vim'
-Plug 'dylanaraps/wal.vim'
+" Plug 'rafaqz/ranger.vim'
+" Plug 'dylanaraps/wal.vim'
 
 call plug#end()
