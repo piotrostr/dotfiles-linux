@@ -10,18 +10,14 @@
     "graphql",
     "solidity",
     "python",
-    "go"
+    "go",
+    "rust"
   ],
   "coc.preferences.enableFloatHighlight": true,
   "eslint.autoFixOnSave": true,
   "eslint.run": "onSave",
   "prettier.formatterPriority": 4,
   "languageserver": {
-    "graphql": {
-      "command": "graphql-lsp",
-      "args": ["server", "-m", "stream"],
-      "filetypes": ["graphql"]
-    },
     "solidity": {
       "command": "/opt/homebrew/bin/solc",
       "args": ["--lsp"],
@@ -36,12 +32,20 @@
         "/Users/piotrostrowski/.config/efm-langserver/config.yaml"
       ],
       "filetypes": ["vim", "eruby", "markdown", "yaml"]
+    },
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {},
+      "settings": {}
     }
   },
   "git.enableGlobalStatus": false,
-  "tsserver.npm": "/Users/piotrostrowski/.nvm/versions/node/v17.4.0/bin/npm",
-  "pyright.server": "/Users/piotrostrowski/.nvm/versions/node/v17.4.0/bin/pyright-langserver",
-  "python.pythonPath": "/Users/piotrostrowski/miniconda/bin/python",
+  "tsserver.enable": true,
+  "tsserver.npm": "/Users/piotrostrowski/.nvm/versions/node/v17.5.0/bin/npm",
+  "tsserver.enableJavascript": true,
+  "tsserver.enableTracing": true,
   "python.formatting.provider": "yapf",
   "pyright.enable": true,
   "python.analysis.autoSearchPaths": true,
@@ -85,5 +89,13 @@
   },
   "snippets.loadFromExtensions": true,
   "suggest.languageSourcePriority": 99,
-  "coc.preferences.colorSupport": true
+  "go.goplsOptions": {
+    "gofumpt": true,
+    "completeUnimported": true
+  },
+  "highlight.colorNames.enable": false,
+  "tabnine.priority": 5,
+  "docker.enable": true,
+  "python.linting.pytypeEnabled": false,
+  "python.analysis.typeCheckingMode": "off"
 }

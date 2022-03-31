@@ -20,6 +20,7 @@ plugins=(
   xcode 
   yarn 
   colored-man-pages
+  deno
 
   # the crucial make-zsh-like-fish plugins
   zsh-interactive-cd
@@ -99,9 +100,37 @@ fi
 # DARK_COLOR='gruvbox_dark.yaml'
 LIGHT_COLOR='atom_one_light.yaml'
 DARK_COLOR='one_dark.yaml'
+# LIGHT_COLOR='github_light.yaml'
+# DARK_COLOR='github_dark.yaml'
 alias day="alacritty-colorscheme apply $LIGHT_COLOR && export DAYTIME=day"
 alias night="alacritty-colorscheme apply $DARK_COLOR && export DAYTIME=night"
 
 # Set typewritten ZSH as a prompt
 autoload -U promptinit; promptinit
 prompt typewritten
+
+# source ~/base-env/bin/activate
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+
+export PGDATABASE=postgres
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+conda deactivate
+conda activate
+# <<< conda initialize <<<
+
+source <(kubectl completion zsh)

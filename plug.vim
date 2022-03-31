@@ -25,7 +25,6 @@ Plug 'morhetz/gruvbox'
 Plug 'sohkai/syntastic-local-solhint'
 Plug 'mfussenegger/nvim-dap'
 Plug 'aserowy/tmux.nvim'
-Plug 'puremourning/vimspector'
 Plug 'TovarishFin/vim-solidity'
 Plug 'Pocco81/AutoSave.nvim'
 Plug 'projekt0n/github-nvim-theme'
@@ -37,7 +36,8 @@ Plug 'glepnir/dashboard-nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
-" Plug 'rafaqz/ranger.vim'
-" Plug 'dylanaraps/wal.vim'
+Plug 'hashivim/vim-terraform'
+Plug 'github/copilot.vim'
+Plug 'puremourning/vimspector'
 
 call plug#end()

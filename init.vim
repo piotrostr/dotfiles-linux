@@ -1,6 +1,11 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 runtime ./plug.vim
 
+nnoremap Y y$
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+
 syntax on
 filetype plugin indent on
 
@@ -16,6 +21,10 @@ let g:coc_snippet_next = '<tab>'
 let g:gruvbox_italic = 1
 let g:gruvbox_bold = 1
 let g:gruvbox_transparent_bg = 1
+let g:airline_theme = 'minimalist'
+
+let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-node-debug2' ]
+
 
 if exists('+termguicolors')
   let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
@@ -39,21 +48,29 @@ set number relativenumber
 set guicursor=i:block
 
 "colorschemes
-  if ($DAYTIME == 'day')
-    let g:onedark_config = {'style': 'light'}
-    let g:airline_theme = 'base16_one_light'
-    "set background=light
-  else
-    let g:onedark_config = {'style': 'darker'}
-    let g:airline_theme = 'onedark'
-    "set background=dark
-  endif
+if ($DAYTIME == 'day')
+  " let g:onedark_config = {'style': 'light'}
+  set background=light
+  " colorscheme github_light_default
+else
+  " let g:onedark_config = {'style': 'darker'}
+  " let g:airline_theme = 'onedark'
+  set background=dark
+  " colorscheme github_dark
+endif
+
+autocmd! BufWritePost ~/.config/nvim/init.vim source ~/.config/nvim/init.vim
+autocmd! BufWritePost ~/.config/nvim/plug.vim source ~/.config/nvim/plug.vim
+
 
 "colorscheme gruvbox
+"let g:airline_theme = 'gruvbox'
 "colorscheme tokyonight
 colorscheme onedark
-
-hi Normal guibg=NONE ctermbg=NONE
+highlight Normal     ctermbg=NONE guibg=NONE
+highlight LineNr     ctermbg=NONE guibg=NONE
+highlight SignColumn ctermbg=NONE guibg=NONE
+highlight Comment    ctermfg=green
 
 "remap leader to space
 nmap <space> <Leader>
@@ -98,6 +115,7 @@ nmap <silent><leader>a  <Plug>(coc-codeaction)
 nnoremap <silent><leader>d  :<C-u>CocList diagnostics<cr>
 nmap <silent><leader>f <Plug>(coc-fix-current)
 
+"TODO fix
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
@@ -121,6 +139,7 @@ endfunction
 
 "debugger keybindings
 nmap <silent> do <Plug>VimspectorContinue
+nmap <silent> dr <Plug>VimspectorReset
 nmap <silent> dq <Plug>VimspectorStop
 nmap <silent> ds <Plug>VimspectorBalloonEval
 xmap <silent> ds <Plug>VimspectorBalloonEval
@@ -281,14 +300,14 @@ require'nvim-treesitter.configs'.setup {
     "tsx",
     "json",
     "html",
-    "python",
     "typescript",
     "lua",
     "go",
+    "python"
   },
   highlight = {
     enable = true,
-    disable = {},
+    disable = {"python"},
   },
   indent = {
     enable = false,

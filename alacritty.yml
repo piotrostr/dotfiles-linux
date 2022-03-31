@@ -1,7 +1,7 @@
 window:
   padding:
-    x: 0
-    y: 6
+    x: 7
+    y: 7
   dynamic_padding: true
   opacity: 1
   decorations: buttonless
@@ -35,7 +35,15 @@ colors:
     magenta: '0xc678dd'
     cyan: '0x56b6c2'
     white: '0xffffff'
+  indexed_colors:
+    - {index: 16, color: '0xd18616'}
+    - {index: 17, color: '0xf97583'}
 font:
+  # other choices:
+  # UbuntuMono Nerd Font
+  # UbuntuMono Nerd Font
+  # I also messed with Cousine which is like Courier,
+  # with little success :(
   normal:
     family: UbuntuMono Nerd Font
     style: Regular
@@ -45,7 +53,7 @@ font:
   italic:
     family: UbuntuMono Nerd Font
     style: Italic
-  size: 20
+  size: 25
 
 mouse:
   hide_when_typing: true
