@@ -1,0 +1,110 @@
+i  apt-transport-https - transitional package for https support
+i  aptitude - terminal-based package manager
+i  autoconf - automatic configure script builder
+i  base-passwd - Debian base system master password and group files
+i  build-essential - Informational list of build-essential packages
+i  ca-certificates - Common CA certificates
+i  clang - C, C++ and Objective-C compiler (LLVM based)
+i  cmake - cross-platform, open-source make system
+i  cmake-data - CMake data files (modules, templates and documentation)
+i  conky - highly configurable system monitor (transitional package)
+i  containerd.io - An open and reliable container runtime
+i  curl - command line tool for transferring data with URL syntax
+i  dash - POSIX-compliant shell
+i  dconf-editor - simple configuration storage system - graphical editor
+i  diffutils - File comparison utilities
+i  docker-ce - Docker: the open-source application container engine
+i  docker-ce-cli - Docker CLI: the open-source application container engine
+i  docker-scan-plugin - Docker scan cli plugin.
+i  fd-find - Simple, fast and user-friendly alternative to find
+i  feh - imlib2 based image viewer
+i  findutils - utilities for finding files--find, xargs
+i  finger - user information lookup program
+i  firefox-locale-en - English language pack for Firefox
+i  fontconfig - generic font configuration library - support binaries
+i  fonts-indic - Meta package to install all Indian language fonts
+i  fzf - general-purpose command-line fuzzy finder
+i  gcc - GNU C compiler
+i  gh - GitHub’s official command line tool.
+i  git - fast, scalable, distributed revision control system
+i  gnome-screensaver - Screensaver and screen lock formerly used in GNOME
+i  gnome-shell-extension-prefs - tool to enable / disable GNOME Shell extensions
+i  gnupg - GNU privacy guard - a free PGP replacement
+i  grep - GNU grep, egrep and fgrep
+i  grub-common - GRand Unified Bootloader (common files)
+i  grub-efi-amd64-signed - GRand Unified Bootloader, version 2 (EFI-AMD64 version, signed)
+i  grub-gfxpayload-lists - GRUB gfxpayload blacklist
+i  grub-pc - GRand Unified Bootloader, version 2 (PC/BIOS version)
+i  grub-pc-bin - GRand Unified Bootloader, version 2 (PC/BIOS modules)
+i  grub2-common - GRand Unified Bootloader (common files for version 2)
+i  gzip - GNU compression utilities
+i  hostname - utility to set/show the host name or domain name
+i  i3 - metapackage (i3 window manager, screen locker, menu, statusbar)
+i  i3-wm - improved dynamic tiling window manager
+i  i3lock - improved screen locker
+i  i3status - Generates a status line for dzen2, xmobar or i3bar
+i  init - metapackage ensuring an init system is installed
+i  language-pack-en - translation updates for language English
+i  language-pack-en-base - translations for language English
+i  language-pack-gnome-en - GNOME translation updates for language English
+i  language-pack-gnome-en-base - GNOME translations for language English
+i  libasound2-dev - shared library for ALSA applications -- development files
+i  libcairo2-dev - Development files for the Cairo 2D graphics library
+i  libcurl4-openssl-dev - development files and documentation for libcurl (OpenSSL flavour)
+i  libdebconfclient0 - Debian Configuration Management System (C-implementation library)
+i  libfontconfig1-dev - generic font configuration library - development
+i  libfprint-2-tod1 - async fingerprint library of fprint project, drivers shared libraries
+i  libfreetype6-dev - FreeType 2 font engine, development files (transitional package)
+i  libjsoncpp-dev - library for reading and writing JSON for C++ (devel files)
+i  libllvm9 - Modular compiler and toolchain technologies, runtime library
+i  libmpdclient-dev - client library for the Music Player Daemon (development files)
+i  libnl-genl-3-dev - development library and headers for libnl-genl-3
+i  libpulse-dev - PulseAudio client development headers and libraries
+i  libuv1-dev - asynchronous event notification library - development files
+i  libxcb-composite0-dev - X C Binding, composite extension, development files
+i  libxcb-cursor-dev - utility libraries for X C Binding -- cursor, development files
+i  libxcb-ewmh-dev - utility libraries for X C Binding -- ewmh, development files
+i  libxcb-icccm4-dev - utility libraries for X C Binding -- icccm, development files
+i  libxcb-image0-dev - utility libraries for X C Binding -- image, development files
+i  libxcb-randr0-dev - X C Binding, randr extension, development files
+i  libxcb-util0-dev - dummy transitional package for utility libraries for X C Binding -- atom, aux and event
+i  libxcb-xfixes0-dev - X C Binding, xfixes extension, development files
+i  libxcb-xkb-dev - X C Binding, XKEYBOARD extension, development files
+i  libxcb-xrm-dev - utility functions for the X resource manager, development files
+i  libxcb1-dev - X C Binding, development files
+i  libxkbcommon-dev - library interface to the XKB compiler - development files
+i  linux-generic-hwe-20.04 - Complete Generic Linux kernel and headers
+i  lsb-release - Linux Standard Base version reporting utility
+i  mesa-utils - Miscellaneous Mesa GL utilities
+i  mokutil - tools for manipulating machine owner keys
+i  ncurses-base - basic terminal type definitions
+i  ncurses-bin - terminal-related programs and man pages
+i  neofetch - Shows Linux System Information with Distribution Logo
+i  nvidia-docker2 - nvidia-docker CLI wrapper
+i  nvidia-driver-510 - NVIDIA driver metapackage
+i  openrazer-meta - OpenRazer peripheral drivers (metapackage)
+i  os-prober - utility to detect other OSes on a set of drives
+i  pkg-config - manage compile and link flags for libraries
+i  polychromatic - RGB lighting utility (metapackage)
+i  python3 - interactive high-level object-oriented language (default python3 version)
+i  python3-packaging - core utilities for python3 packages
+i  python3-pip - Python package installer
+i  python3-sphinx - documentation generator for Python projects (implemented in Python 3)
+i  python3-xcbgen - X C Binding - protocol binding generator (Python 3)
+i  rofi - window switcher, run dialog and dmenu replacement
+i  scrot - command line screen capture utility
+i  shim-signed - Secure Boot chain-loading bootloader (Microsoft-signed binary)
+i  software-properties-gtk - manage the repositories that you install software from (gtk)
+i  suckless-tools - simple commands for minimalistic window managers
+i  tmux - terminal multiplexer
+i  ubuntu-desktop - The Ubuntu desktop system
+i  ubuntu-desktop-minimal - The Ubuntu desktop minimal system
+i  ubuntu-minimal - Minimal core of Ubuntu
+i  ubuntu-standard - The Ubuntu standard system
+i  ubuntu-wallpapers - Ubuntu Wallpapers
+i  via - Yet another keyboard configurator
+i  xbacklight - simple utility to set the backlight level
+i  xcb-proto - X C Binding - protocol descriptions
+i  xclip - command line interface to X selections
+i  zsh - shell with lots of features
+i  zsh-syntax-highlighting - Fish shell like syntax highlighting for zsh
