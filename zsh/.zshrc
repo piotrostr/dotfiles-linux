@@ -48,26 +48,7 @@ export TYPEWRITTEN_DISABLE_RETURN_CODE=true
 
 source $ZSH/oh-my-zsh.sh
 
-# nvm
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-
-# env vars
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export GOPATH="$HOME"
-export PATH="$HOME/go/bin:$PATH"
-export MANPATH="/usr/local/man:$MANPATH"
-export LANG=en_US.UTF-8
-export REACT_DEBUGGER="open -g 'rndebugger://set-debugger-loc?port=8081' || react-native start --reset-cache"
-export NVM_DIR="$HOME/.nvm"
-export PATH="/usr/local/opt/python@3.7/bin:$PATH"
-export EDITOR="nvim"
-export SDKROOT="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/"
-export ARCHFLAGS="-arch arm64"
-export CGO_ENABLED=0
 
 # aliases
 alias ls="ls -G"
@@ -89,17 +70,17 @@ alias linode=linode-cli
 autoload -Uz compinit && compinit
 
 # dynamic theme
-colorscheme=$(cat /Users/piotrostrowski/.config/alacritty/alacritty.yml | grep COLORSCHEME)
+colorscheme=$(cat $HOME/.config/alacritty/alacritty.yml | grep COLORSCHEME)
 if [[ $colorscheme == *"light"* ]]; then
   export DAYTIME="day"
 else
   export DAYTIME="night"
 fi
 
-# LIGHT_COLOR='gruvbox_light.yaml'
-# DARK_COLOR='gruvbox_dark.yaml'
-LIGHT_COLOR='atom_one_light.yaml'
-DARK_COLOR='one_dark.yaml'
+LIGHT_COLOR='gruvbox_light.yaml'
+DARK_COLOR='gruvbox_dark.yaml'
+# LIGHT_COLOR='atom_one_light.yaml'
+# DARK_COLOR='one_dark.yaml'
 # LIGHT_COLOR='github_light.yaml'
 # DARK_COLOR='github_dark.yaml'
 alias day="alacritty-colorscheme apply $LIGHT_COLOR && export DAYTIME=day"
@@ -108,29 +89,55 @@ alias night="alacritty-colorscheme apply $DARK_COLOR && export DAYTIME=night"
 # Set typewritten ZSH as a prompt
 autoload -U promptinit; promptinit
 prompt typewritten
+if [[ $OSTYPE == 'darwin'* ]];
+then
+  # source ~/base-env/bin/activate
+  export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+  export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
-# source ~/base-env/bin/activate
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+  export PGDATABASE=postgres
 
-export PGDATABASE=postgres
+  # >>> conda initialize >>>
+  # !! Contents within this block are managed by 'conda init' !!
+  __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+  else
+      if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+          . "/opt/anaconda3/etc/profile.d/conda.sh"
+      else
+          export PATH="/opt/anaconda3/bin:$PATH"
+      fi
+  fi
+  unset __conda_setup
+  conda deactivate
+  conda activate
+  # <<< conda initialize <<<
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/anaconda3/bin:$PATH"
-    fi
+  # nvm
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+  # env vars
+  export GOPATH="$HOME"
+  export PATH="$HOME/go/bin:$PATH"
+  export MANPATH="/usr/local/man:$MANPATH"
+  export LANG=en_US.UTF-8
+  export REACT_DEBUGGER="open -g 'rndebugger://set-debugger-loc?port=8081' || react-native start --reset-cache"
+  export PATH="/usr/local/opt/python@3.7/bin:$PATH"
+  export EDITOR="nvim"
+  export SDKROOT="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/"
+  export ARCHFLAGS="-arch arm64"
+  export CGO_ENABLED=0
 fi
-unset __conda_setup
-conda deactivate
-conda activate
-# <<< conda initialize <<<
 
-source <(kubectl completion zsh)
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+
+source ~/.nvm/nvm.sh
+
+# source <(kubectl completion zsh)
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
