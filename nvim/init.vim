@@ -46,27 +46,24 @@ set ruler
 set autoindent
 set number relativenumber
 set guicursor=i:block
+set foldmethod=indent
 
 "colorschemes
 if ($DAYTIME == 'day')
-  " let g:onedark_config = {'style': 'light'}
   set background=light
-  " colorscheme github_light_default
+  let g:onedark_config = {'style': 'light'}
 else
-  " let g:onedark_config = {'style': 'darker'}
-  " let g:airline_theme = 'onedark'
+  let g:onedark_config = {'style': 'darker'}
   set background=dark
-  " colorscheme github_dark
 endif
 
 autocmd! BufWritePost ~/.config/nvim/init.vim source ~/.config/nvim/init.vim
 autocmd! BufWritePost ~/.config/nvim/plug.vim source ~/.config/nvim/plug.vim
 
 
-"colorscheme gruvbox
+colorscheme gruvbox
 "let g:airline_theme = 'gruvbox'
-"colorscheme tokyonight
-colorscheme onedark
+"colorscheme onedark
 highlight Normal     ctermbg=NONE guibg=NONE
 highlight LineNr     ctermbg=NONE guibg=NONE
 highlight SignColumn ctermbg=NONE guibg=NONE
@@ -293,7 +290,7 @@ require'diffview'.setup {
 }
 
 --treesitter setup
-require'nvim-treesitter.install'.compilers = { 'aarch64-apple-darwin21-gcc-11' }
+--require'nvim-treesitter.install'.compilers = { 'aarch64-apple-darwin21-gcc-11' }
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
     "javascript",
