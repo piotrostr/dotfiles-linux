@@ -14,3 +14,9 @@
   prompt = false
 [diff]
   tool = nvim
+[credential]
+	helper = store
+[core]
+	editor = vim
+[url "https://github.com/"]
+	insteadOf = git://github.com/

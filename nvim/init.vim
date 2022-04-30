@@ -40,13 +40,12 @@ set autoindent
 set smartindent
 set smarttab
 set expandtab
-set number
 set hlsearch
 set ruler
 set autoindent
 set number relativenumber
 set guicursor=i:block
-set foldmethod=indent
+set foldmethod=manual
 
 "colorschemes
 if ($DAYTIME == 'day')
@@ -368,5 +367,7 @@ require'autosave'.setup{
   clean_command_line_interval = 0,
   debounce_delay = 135
 }
+
+require'colorizer'.setup()
 
 EOF

@@ -11,15 +11,15 @@
     "solidity",
     "python",
     "go",
-    "rust"
+    "rust",
+    "cpp",
+    "cmake"
   ],
   "coc.preferences.enableFloatHighlight": true,
-  "eslint.autoFixOnSave": true,
-  "eslint.run": "onSave",
   "prettier.formatterPriority": 4,
   "languageserver": {
     "solidity": {
-      "command": "/opt/homebrew/bin/solc",
+      "command": "/usr/bin/solc",
       "args": ["--lsp"],
       "trace.server": "verbose",
       "rootPatterns": [".git/"],
@@ -27,10 +27,6 @@
     },
     "efm": {
       "command": "efm-langserver",
-      "args": [
-        "-c",
-        "/Users/piotrostrowski/.config/efm-langserver/config.yaml"
-      ],
       "filetypes": ["vim", "eruby", "markdown", "yaml"]
     },
     "terraform": {
@@ -39,14 +35,29 @@
       "filetypes": ["terraform", "tf"],
       "initializationOptions": {},
       "settings": {}
+    },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        }
+      }
     }
   },
   "git.enableGlobalStatus": false,
   "tsserver.enable": true,
-  "tsserver.npm": "/Users/piotrostrowski/.nvm/versions/node/v17.5.0/bin/npm",
   "tsserver.enableJavascript": true,
   "tsserver.enableTracing": true,
-  "python.formatting.provider": "yapf",
+  "python.formatting.provider": "black",
   "pyright.enable": true,
   "python.analysis.autoSearchPaths": true,
   "python.analysis.useLibraryCodeForTypes": true,
@@ -94,7 +105,6 @@
     "completeUnimported": true
   },
   "highlight.colorNames.enable": false,
-  "tabnine.priority": 5,
   "docker.enable": true,
   "python.linting.pytypeEnabled": false,
   "python.analysis.typeCheckingMode": "off"

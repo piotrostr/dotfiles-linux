@@ -8,7 +8,7 @@ Plug 'dag/vim-fish'
 Plug 'jparise/vim-graphql'
 Plug 'tpope/vim-fugitive'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'nvim-lua/plenary.nvim'
@@ -39,5 +39,7 @@ Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
 Plug 'hashivim/vim-terraform'
 Plug 'github/copilot.vim'
 Plug 'puremourning/vimspector'
+Plug 'christoomey/vim-system-copy'
+Plug 'norcalli/nvim-colorizer.lua'
 
 call plug#end()
