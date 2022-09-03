@@ -9,6 +9,62 @@ nnoremap J mzJ`z
 syntax on
 filetype plugin indent on
 
+" -- COC CONFIG --
+set nobackup
+set nowritebackup
+set updatetime=300
+set signcolumn=yes
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
 let &packpath=&runtimepath
 let g:dashboard_default_executive ='telescope'
 let g:onedark_config = { 'style': 'deep' }
@@ -17,7 +73,6 @@ let g:tokyonight_transparent = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_splits = 0
-let g:coc_snippet_next = '<tab>'
 let g:gruvbox_italic = 1
 let g:gruvbox_bold = 1
 let g:gruvbox_transparent_bg = 1
@@ -35,7 +90,6 @@ if exists('+termguicolors')
 endif
 
 set colorcolumn=80
-set updatetime=300
 set hidden
 set encoding=utf-8
 set shiftwidth=2
@@ -95,46 +149,6 @@ nmap <silent> <c-p> :bp<CR>
 " map <leader>rv :RangerVSplit<cr>
 " map <leader>rs :rangersplit<cr>
 " map <leader>rt :RangerTab<cr>
-
-"save and load sessions
-nmap <Leader>ss :<C-u>SessionSave<CR>
-nmap <Leader>sl :<C-u>SessionLoad<CR>
-
-"coc setup
-nmap gs <Plug>(coc-git-chunkinfo)
-nmap gk <Plug>(coc-git-commit)
-nmap <silent> gu <cmd>CocCommand git.chunkUndo<cr>
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-inoremap <silent><expr> <c-space> coc#refresh()
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gy <Plug>(coc-type-definition)
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-nmap <silent><leader>a  <Plug>(coc-codeaction)
-nnoremap <silent><leader>d  :<C-u>CocList diagnostics<cr>
-nmap <silent><leader>f <Plug>(coc-fix-current)
-
-"TODO fix
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
 
 "debugger keybindings
 nmap <silent> do <Plug>VimspectorContinue
