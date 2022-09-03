@@ -22,6 +22,8 @@ let g:gruvbox_italic = 1
 let g:gruvbox_bold = 1
 let g:gruvbox_transparent_bg = 1
 let g:airline_theme = 'minimalist'
+let g:loaded_perl_provider = 0
+let g:loaded_ruby_provider = 0
 
 let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-node-debug2' ]
 
@@ -32,6 +34,7 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
+set colorcolumn=80
 set updatetime=300
 set hidden
 set encoding=utf-8
